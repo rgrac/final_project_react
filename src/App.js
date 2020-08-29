@@ -1,26 +1,38 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Route,Switch} from 'react-router-dom';
+import NavBarFromDashboard from './components/NavBarFromDashboard';
+//
+//Add the components for the Routing
+import HomeDashboard from './components/HomeDashboard';
+import AboutUs from './components/AboutUs';
+import SignUp from './components/SignUp';
+import Pricing from './components/Pricing';
+import LogIn from './components/LogIn';
+import FavoritesCities from './components/FavoritesCities';
+import Err from './components/Err';
+import LogOut from './components/LogOut';
+//
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <NavBarFromDashboard />
+      <Switch>
+        <Route path='/' exact>
+          <HomeDashboard />
+        </Route>
+        <Route path='/favorites' component={FavoritesCities} />
+        <Route path='/about' component={AboutUs} />
+        <Route path='/signup' component={SignUp} />
+        <Route path='/pricing' component={Pricing} />
+        <Route path='/login' component={LogIn} />
+        <Route component={Err} />
+      </Switch>
     </div>
   );
 }
 
 export default App;
+
+/* <Route path='/logout' component={LogOut} /> */
