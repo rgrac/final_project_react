@@ -20,6 +20,11 @@ class LogOut extends React.Component {
         const { navigate } = this.state
         if (navigate) {
             return(
+                <div>
+                    <h1>
+                        You have been loged Out successufully
+                    </h1>
+                </div>
                 <Redirect to="/" push={ true } />
             )
         }

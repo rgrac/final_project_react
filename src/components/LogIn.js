@@ -9,7 +9,8 @@ class LogIn extends React.Component {
         this.state = {
             username: '',
             password: '',
-            message: ''
+            message: '',
+            user: ''
         }
     }
 
@@ -36,15 +37,22 @@ class LogIn extends React.Component {
                 this.setState({message: data.message})
             } else if (data.user) {
                 this.setState({redirect: data.redirect, user: data.user, message: data.message})
+                localStorage.setItem(
+                    "loggedInUser", JSON.stringify(this.state.user))
+                    console.log('first ', localStorage)
             }
             
         })
+        
+
     }
+    
     render(){
         const {redirect, message} = this.state;
         if (redirect) {
             return <Redirect to = {redirect} />
         }
+
 
         return (
             <div style={{ width: 300 + "px", margin: 10 + "px", border: 2 + "px solid", padding: 5 + "px" }}>

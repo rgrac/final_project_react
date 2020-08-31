@@ -3,6 +3,7 @@ import React from 'react';
 import { citiesDummy, weatherDummy } from './citiesDummy'
 import WeatherCard from './WeatherCard';
 // import { APIKEY } from './APIKeys';
+import NavBarFromDashboard from './NavBarFromDashboard'
 
 
 class HomeDashboard extends React.Component {
@@ -14,7 +15,8 @@ class HomeDashboard extends React.Component {
             suggestions: [],
             selectedCity: [],
             forecastData: [],
-            cityData: {}
+            cityData: {},
+            login_status: {}
         }
         console.log(citiesDummy)
     }
@@ -54,6 +56,7 @@ class HomeDashboard extends React.Component {
     onTextClicked = (key, name) => {
         this.setState({cityData:name})
         this.setState({forecastData:weatherDummy})
+        console.log(weatherDummy)
         // this.setState({selectedCity : key})
         // fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=${APIKEY}&language=en-us&metric=true`)
         //     .then(res => res.json())
@@ -67,10 +70,12 @@ class HomeDashboard extends React.Component {
     }
 
     render() {
+
         const { selectedCity, forecastData, cityData } = this.state;
         // console.log(forecastData)
         // console.log(selectedCity);
         return (
+            
             <div>
                 <h1>Home Page</h1>
                 <h2>Select a city</h2>
@@ -86,3 +91,4 @@ class HomeDashboard extends React.Component {
 }
 
 export default HomeDashboard;
+{/* <NavBarFromDashboard /> */}
