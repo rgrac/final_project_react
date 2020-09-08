@@ -7,7 +7,6 @@ import { Redirect } from 'react-router-dom';
 
 
 class NavBarFromDashboard extends React.Component {
-  // let login_status = false
   // console.log(login_status)
   constructor() {
     super();
@@ -17,12 +16,13 @@ class NavBarFromDashboard extends React.Component {
   }
   logoutUser = () => {
     localStorage.removeItem("loggedInUser")
-    fetch('http://localhost:5000/logout')
-      .then(res => res.json())
-      .then(res => {
-        console.log(res)
-        this.setState({redirect: res.redirect})
-      })
+    alert('You have been logged out successfull')
+    // fetch('http://localhost:5000/logout')
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     console.log(res)
+    //     this.setState({redirect: res.redirect})
+    //   })
     // console.log(data)
     
   }
@@ -56,7 +56,7 @@ class NavBarFromDashboard extends React.Component {
           <Nav>
             <Nav.Link href="/signup">Sign Up</Nav.Link>
             <Nav.Link href="/login">Log In</Nav.Link>
-            <Nav.Link onClick={this.logoutUser}>
+            <Nav.Link href="/" onClick={this.logoutUser}>
               Log Out
               </Nav.Link>
           </Nav>
@@ -70,7 +70,3 @@ class NavBarFromDashboard extends React.Component {
 
 
 export default NavBarFromDashboard;
-
-// eventKey={2}
-
-// onClick={() => LogOut

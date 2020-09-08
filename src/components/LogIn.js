@@ -36,7 +36,7 @@ class LogIn extends React.Component {
             if (data.message) {
                 this.setState({message: data.message})
             } else if (data.user) {
-                this.setState({redirect: data.redirect, user: data.user, message: data.message})
+                this.setState({ user: data.user, message: data.message})
                 localStorage.setItem(
                     "loggedInUser", JSON.stringify(this.state.user))
                     console.log('first ', localStorage)

@@ -21,8 +21,9 @@ class App extends React.Component {
       
     }
   }
-
+  
   render() {
+
     return (
       <div>
         <NavBarFromDashboard />
@@ -30,12 +31,25 @@ class App extends React.Component {
           <Route path='/' exact>
             <HomeDashboard />
           </Route>
-          <Route path='/favorites' component={FavoritesCities} />
-          <Route path='/about' component={AboutUs} />
-          <Route path='/signup' component={SignUp} />
-          <Route path='/pricing' component={Pricing} />
-          <Route path='/login' component={ LogIn } />
-          <Route component={Err} />
+          <Route path='/favorites'>
+            <FavoritesCities /> 
+          </Route>
+          <Route path='/about'>
+            <AboutUs />
+          </Route>
+          <Route path='/signup'>
+          <SignUp />
+          </Route>
+          <Route path='/pricing'>
+            <Pricing />
+          </Route>
+          <Route path='/login'>
+            <LogIn />
+          </Route>
+          
+          <Route>
+            <Err />
+          </Route>
         </Switch>
       </div>
     );
