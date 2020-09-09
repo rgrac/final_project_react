@@ -1,9 +1,7 @@
 import React from 'react';
 // import './home.css';
-import { citiesDummy, weatherDummy } from './citiesDummy'
 import WeatherCard from './WeatherCard';
-// import { APIKEY } from './APIKeys';
-import NavBarFromDashboard from './NavBarFromDashboard'
+import { APIKEY } from './APIKeys';
 
 
 class HomeDashboard extends React.Component {
@@ -18,27 +16,25 @@ class HomeDashboard extends React.Component {
             cityData: {},
             login_status: {}
         }
-        console.log(citiesDummy)
     }
-    
+
     onTextChange = (e) => {
-        this.setState({ suggestions: citiesDummy })
-        // const value = e.target.value;
-        // const {citieslist} = this.state
-        // let suggestions = [];
-        // if(value.length > 3) {
-            //     // suggestions = citieslist.filter(val => {
-                //     //     return val.city_name.toLowerCase().startsWith(value.toLowerCase())
-                //     // })
-                //     fetch(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${APIKEY}&q=${value}`)
-                //     .then(res => res.json())
-                //     .then(cities => {
-                    //         console.log(JSON.stringify(cities));
-        //         this.setState({suggestions:cities})
-        //     })   
-        // }
+        const value = e.target.value;
+        const { citieslist } = this.state
+        let suggestions = [];
+        if (value.length > 3) {
+            suggestions = citieslist.filter(val => {
+                return val.city_name.toLowerCase().startsWith(value.toLowerCase())
+            })
+            fetch(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${APIKEY}&q=${value}`)
+                .then(res => res.json())
+                .then(cities => {
+                    ;
+                    this.setState({ suggestions: cities })
+                })
+        }
     }
-    
+
     renderSuggestion = () => {
         const { suggestions } = this.state;
         return (
@@ -52,37 +48,35 @@ class HomeDashboard extends React.Component {
             </ul>
         )
     }
-    
+
     onTextClicked = (key, name) => {
-        this.setState({cityData:name})
-        this.setState({forecastData:weatherDummy})
-        console.log(weatherDummy)
-        // this.setState({selectedCity : key})
-        // fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=${APIKEY}&language=en-us&metric=true`)
-        //     .then(res => res.json())
-        //     .then(cityForecast => {
-        //         // console.log(cityForecast);
-                // this.setState({forecastData:cityForecast})
-        //     })
-        //     .catch(err => {
-        //         console.log('We got an error in the cityfetch ', err)
-        //     })
+        this.setState({ cityData: name })
+        // this.setState({forecastData:weatherDummy})
+        // console.log(weatherDummy)
+        this.setState({ selectedCity: key })
+        fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=${APIKEY}&language=en-us&metric=true`)
+            .then(res => res.json())
+            .then(cityForecast => {
+                // console.log(cityForecast);
+                this.setState({ forecastData: cityForecast })
+            })
+            .catch(err => {
+                console.log('We got an error in the cityfetch ', err)
+            })
     }
 
     render() {
+        const { forecastData, cityData } = this.state;
 
-        const { selectedCity, forecastData, cityData } = this.state;
-        // console.log(forecastData)
-        // console.log(selectedCity);
         return (
-            
+
             <div>
                 <h1>Home Page</h1>
                 <h2>Select a city</h2>
                 <input type="text"
                     onChange={this.onTextChange} />
                 {this.renderSuggestion()}
-                <WeatherCard forecastCity={forecastData} cityData={cityData}/>
+                <WeatherCard forecastCity={forecastData} cityData={cityData} />
 
             </div>
 
@@ -91,4 +85,3 @@ class HomeDashboard extends React.Component {
 }
 
 export default HomeDashboard;
-{/* <NavBarFromDashboard /> */}

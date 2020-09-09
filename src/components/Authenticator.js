@@ -1,4 +1,6 @@
-import { isLoggedIn } from "./LogIn"
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import {isLoggedIn} from "./LogIn"
 
 function PrivateRoute({ children, ...rest }) {
   return (

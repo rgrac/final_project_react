@@ -4,23 +4,23 @@ import Form from 'react-bootstrap/Form';
 import { Redirect } from 'react-router-dom';
 
 class LogIn extends React.Component {
-    constructor(){
+    constructor() {
         super()
         this.state = {
             username: '',
             password: '',
             message: '',
-            user: ''
+            user: '',
+            redirect: ''
         }
     }
 
     textInput = (e) => {
-        console.log('name is: ', e.target.name,' value is: ', e.target.value)
-        this.setState({[e.target.name]: e.target.value})
+        this.setState({ [e.target.name]: e.target.value })
     }
 
     logInUser = () => {
-        const {username, password} = this.state;
+        const { username, password } = this.state;
         fetch('http://localhost:5000/login', {
             method: 'POST',
             headers: {
@@ -30,27 +30,26 @@ class LogIn extends React.Component {
                 username, password
             })
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            if (data.message) {
-                this.setState({message: data.message})
-            } else if (data.user) {
-                this.setState({ user: data.user, message: data.message})
-                localStorage.setItem(
-                    "loggedInUser", JSON.stringify(this.state.user))
-                    console.log('first ', localStorage)
-            }
-            
-        })
-        
+            .then(res => res.json())
+            .then(data => {
+                if (data.message) {
+                    this.setState({ message: data.message })
+                } else if (data.user) {
+                    this.setState({ user: data.user, redirect: data.redirect })
+                    localStorage.setItem(
+                        "loggedInUser", JSON.stringify(this.state.user))
+                }
+                let userlogged = JSON.parse(localStorage.getItem('loggedInUser'))
+                let userName = userlogged[0].username
+                alert(`Welcome back ${userName}!`)
 
+            })
     }
-    
-    render(){
-        const {redirect, message} = this.state;
+
+    render() {
+        const { redirect, message } = this.state;
         if (redirect) {
-            return <Redirect to = {redirect} />
+            return <Redirect to={redirect} />
         }
 
 
@@ -73,6 +72,10 @@ class LogIn extends React.Component {
             </div>
         )
     }
+}
+
+export function isLoggedIn() {
+    return localStorage.getItem("loggedInUser")
 }
 
 export default LogIn;

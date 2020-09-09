@@ -11,12 +11,12 @@ class SignUp extends React.Component {
             username: '',
             email:'',
             password: '',
-            user: null
+            user: null,
+            redirect: ''
         }
     }
 
     textInput = (e) => {
-        console.log('name is: ', e.target.name,' value is: ', e.target.value)
         this.setState({[e.target.name]: e.target.value})
     }
 
@@ -33,7 +33,6 @@ class SignUp extends React.Component {
         })
         .then(res => res.json())
         .then(data => {
-            // console.log(data)
             this.setState({redirect: data.redirect, user: data.user})
         })
     }
@@ -59,9 +58,6 @@ class SignUp extends React.Component {
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" name='password' placeholder="Password" onChange={this.textInput} />
-                    </Form.Group>
-                    <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Remember Me" style={{fontSize:14+'px'}} />
                     </Form.Group>
                     <Button variant="primary" onClick={this.sendInfo}>
                         Submit

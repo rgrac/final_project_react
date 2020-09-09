@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import NavBarFromDashboard from './components/NavBarFromDashboard';
-//
 //Add the components for the Routing
 import HomeDashboard from './components/HomeDashboard';
 import AboutUs from './components/AboutUs';
@@ -11,8 +10,8 @@ import Pricing from './components/Pricing';
 import LogIn from './components/LogIn';
 import FavoritesCities from './components/FavoritesCities';
 import Err from './components/Err';
-// import LogOut from './components/LogOut';
-//
+import PrivateRoute from './components/Authenticator';
+import LogOut from './components/LogOut';
 
 class App extends React.Component {
   constructor() {
@@ -31,9 +30,9 @@ class App extends React.Component {
           <Route path='/' exact>
             <HomeDashboard />
           </Route>
-          <Route path='/favorites'>
+          <PrivateRoute path='/favorites'>
             <FavoritesCities /> 
-          </Route>
+          </PrivateRoute>
           <Route path='/about'>
             <AboutUs />
           </Route>
@@ -46,7 +45,9 @@ class App extends React.Component {
           <Route path='/login'>
             <LogIn />
           </Route>
-          
+          <Route path='/logout'>
+            <LogOut />
+          </Route>
           <Route>
             <Err />
           </Route>
@@ -58,5 +59,3 @@ class App extends React.Component {
 
 
 export default App;
-
-/* <Route path='/logout' component={LogOut} /> */

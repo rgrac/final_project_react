@@ -2,15 +2,13 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-
-
 class FavoritesCities extends React.Component {
     constructor() {
         super();
         this.state = {
             favoriteList: [],
             favoritesCityName: [],
-            // newArray: []
+            message: ''
         }
 
     }
@@ -18,7 +16,6 @@ class FavoritesCities extends React.Component {
     componentDidMount() {
         let userlogged = JSON.parse(localStorage.getItem('loggedInUser'))
         let userId = userlogged[0].id
-        console.log(userId);
         fetch('http://localhost:5000/favoritelist', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -26,9 +23,7 @@ class FavoritesCities extends React.Component {
         })
             .then(res => res.json())
             .then(res => {
-                // console.log('from favoritescities server', res)
                 this.setState({ favoriteList: res })
-                console.log('this is after setState ', this.state)
             })
             .catch(err => {
                 console.log(err)
@@ -41,52 +36,49 @@ class FavoritesCities extends React.Component {
         })
             .then(res => res.json())
             .then(res => {
-                // console.log('from favoritescities server', res)
                 this.setState({ favoritesCityName: res })
             })
             .catch(err => {
                 console.log(err)
             })
-        console.log(this.state.favoriteList)
-
-        // this.setState({newArray:this.state.favoritesCityName})
     }
 
+    removeFavorites = (cityKey) => {
+        let userlogged = JSON.parse(localStorage.getItem('loggedInUser'))
+        let userId = userlogged[0].id
+        fetch('http://localhost:5000/removefavorite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userId, cityKey
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            alert('City removed from your list')
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
 
     render() {
         const { favoritesCityName, favoriteList } = this.state
-        const removeFavorites = () => {
-            let cityKey = item.city_key
-            console.log(cityKey)
-        }
-        // let newArray = [favoritesCityName, favoriteList]
-        // console.log(newArray)
-        console.log(favoriteList)
-        console.log(favoritesCityName)
-        // const test = favoritesCityName.map(item => {
-        //      return (<h2>{`${item.city_name} ${item.country_name}`}</h2>)
-        // })
-        // const test2 = favoriteList.map( item => {
-        //     return (<h2>{`${item[0].Temperature.Metric.Value}${item[0].Temperature.Metric.Unit}°, Currently: ${item[0].WeatherText} `}</h2>)
-        // })
-        const test = favoritesCityName.map(item => {
-            return (`${item.city_name} ${item.country_name} ${item.city_key}`)
-        })
-        const test2 = favoriteList.map(item => {
+        const temperatures = favoriteList.map(item => {
             return (`${item[0].Temperature.Metric.Value} ${item[0].Temperature.Metric.Unit}° Currently: ${item[0].WeatherText}`)
         })
-        console.log(test)
-        console.log(test2)
 
-        const cardName = test.map((value, index) => {
-            const cardCombined = test2[index]
+        const cardName = favoritesCityName.map((value, index) => {
+            const cardCombined = temperatures[index]
             return (
-                <div>
+                <div key={index}>
                     <Card border="dark" style={{ width: '10rem', textAlign: 'center' }}>
-                        <Card.Header>{value}</Card.Header>
+                        <Card.Header>{value.city_name} {value.country_name}</Card.Header>
                         <Card.Body>
-                            <Card.Title style={{ textAlign: 'center' }}>{cardCombined}</Card.Title>
-                            <Button variant="primary" onClick={removeFavorites}>Remove from Favorites</Button>
+                            <Card.Title style= {{textAlign: 'center'}}>{cardCombined}</Card.Title>
+                            <Button variant="primary" onClick={()=>this.removeFavorites(value.city_key)}>Remove from Favorites</Button>
                         </Card.Body>
                     </Card>
                 </div>
@@ -97,7 +89,6 @@ class FavoritesCities extends React.Component {
                 {
                     cardName
                 }
-
             </div>
         )
     }

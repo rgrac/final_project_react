@@ -1,22 +1,13 @@
 import React from 'react';
-import WeatherCard from './WeatherCard';
 import Card from 'react-bootstrap/Card';
-import CardDeck from 'react-bootstrap/CardDeck';
 import Button from 'react-bootstrap/Button';
 
-const CityCard = ({cityData, firstCard,cityFullName}) => {
+const CityCard = ({cityData, firstCard, cityFullName}) => {
     const {Day, Temperature} = cityData
     let iconNumber = Day.Icon < 10 ? '0'+ Day.Icon:Day.Icon
-    // let correctNumber = ''
-    // if (Day.Icon < 10) {
-    //     correctNumber = '0' + Day.Icon
-    // } else {
-    //     correctNumber = Day.Icon
-    // } and then in the displayIcon replace instead of IconNumber
     let displayIcon = `https://developer.accuweather.com/sites/default/files/${iconNumber}-s.png`
     let cityInteger= parseInt(cityFullName.Key)
     let userlogged = JSON.parse(localStorage.getItem('loggedInUser'))
-    // console.log(userlogged[0].id)
     const addFavorites = () => {
         console.log('test')
         let favoriteSelection = {
@@ -25,7 +16,6 @@ const CityCard = ({cityData, firstCard,cityFullName}) => {
             cityName: cityFullName.LocalizedName,
             countryName: cityFullName.Country.LocalizedName
         }
-        // console.log(favoriteSelection)
         fetch('http://localhost:5000/favorites', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -33,16 +23,14 @@ const CityCard = ({cityData, firstCard,cityFullName}) => {
         })
         .then(res => res.json())
         .then(res=>{
-            console.log('This is the response',res)
+            alert('City added to your list of favorites successufully!')
         })
         .catch(err => {console.log(err)})
-
     } 
 
     return (
         <div>
                 <Card style={{ width: '18rem' }}>
-                {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                 <Card.Body>
                     <Card.Title>
                     {

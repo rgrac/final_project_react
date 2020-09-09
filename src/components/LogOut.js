@@ -1,40 +1,13 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
-// import Navbar from 'react-bootstrap/Navbar';
-// import Nav from 'react-bootstrap/Nav';
 
-class LogOut extends React.Component {
-    constructor() {
-        super();
-        this.state={
-            navigate: false
-        }
-    }
-
-    logoutUser = () => {
-        localStorage.clear('token'); // Token???
-        this.setState({ nativagate: true })
-    }
-
-    render() {
-        const { navigate } = this.state
-        if (navigate) {
-            return(
-                <div>
-                    <h1>
-                        You have been loged Out successufully
-                    </h1>
-                </div>
-                <Redirect to="/" push={ true } />
-            )
-        }
-
-        return null
-    }
-
+const LogOut = () => {
+    
+    return(
+        <div>
+            <h1>You have Log out sucessfully.</h1>
+            <h3>Please Log In or press Home to search for more cities</h3>
+        </div>
+    )
 }
 
 export default LogOut
-        //     <Nav.Link eventKey={2} href="/logout" onClick={this.logoutUser}>
-        //     Log Out
-        //   </Nav.Link>
