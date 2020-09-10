@@ -2,6 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Redirect } from 'react-router-dom';
+import './allPurpose.css'
 
 class LogIn extends React.Component {
     constructor() {
@@ -54,18 +55,19 @@ class LogIn extends React.Component {
 
 
         return (
-            <div style={{ width: 300 + "px", margin: 10 + "px", border: 2 + "px solid", padding: 5 + "px" }}>
+            <div className={"logInBox"}>
                 {message}
                 <Form>
+                    <Form.Label className={"logInText"}>Log In</Form.Label>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>User Name</Form.Label>
+                        <Form.Label className={"userInputs"}>User Name</Form.Label>
                         <Form.Control type="username" name='username' placeholder="Enter username" onChange={this.textInput} />
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label className={"userInputs"} >Password</Form.Label>
                         <Form.Control type="password" name='password' placeholder="Password" onChange={this.textInput} />
                     </Form.Group>
-                    <Button variant="primary" onClick={this.logInUser}>
+                    <Button style={{backgroundColor: "#e74c3c", color: "#fff", outline: "none", textTransform: "uppercase", cursor: "pointer", borderStyle: "none" }} variant="primary" onClick={this.logInUser}>
                         Submit
                     </Button>
                 </Form>
@@ -79,3 +81,5 @@ export function isLoggedIn() {
 }
 
 export default LogIn;
+
+// style={{ width: 300 + "px", margin: 10 + "px", border: 2 + "px solid", padding: 5 + "px", borderRadius: 2 + "%" }}

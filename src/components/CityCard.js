@@ -30,7 +30,7 @@ const CityCard = ({cityData, firstCard, cityFullName}) => {
 
     return (
         <div>
-                <Card style={{ width: '18rem' }}>
+                <Card style={{ width: '15rem' }}>
                 <Card.Body>
                     <Card.Title>
                     {

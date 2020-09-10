@@ -1,5 +1,5 @@
 import React from 'react';
-// import './home.css';
+import './homeDashboard.css';
 import WeatherCard from './WeatherCard';
 import { APIKEY } from './APIKeys';
 
@@ -41,7 +41,7 @@ class HomeDashboard extends React.Component {
             <ul>
                 {
                     suggestions.map(item => {
-                        return <li key={item.Key}
+                        return <li className={"suggestionList"} key={item.Key}
                             onClick={() => this.onTextClicked(item.Key, item)}>{item.LocalizedName} {item.Country.LocalizedName}</li>
                     })
                 }
